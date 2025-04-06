@@ -1,44 +1,99 @@
 // Imports
-import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 //Class
 public class HilbertCurve
 {
     // Declare variables
-    private int order;
+        private LinkedHashMap<Point, Integer> hilbertCurve;
+        private Point pen;
+        private Vector vector;
 
-    Map<Point, Integer> hilbertCurve;
-    Point pen = new Point();
-    Vector vector = new Vector();
+        private int hashPos;
 
     // Constructors
-    public HilbertCurve(int order)
-    {
-        this.order = order;
-
-        hilbertCurve = generateCurve(order);
-    }
-
-    // Methods
-    public Map<Point, Integer> generateCurve(int order)
-    {
-        Map<Point, Integer> hilbertCurve = new HashMap<>();
-
-        // Base case
-        if(order == 1)
+        public HilbertCurve(Point pos, int order)
         {
-            baseCurve(hilbertCurve);
+            // Instantiate variables
+
+            hilbertCurve = new LinkedHashMap<Point, Integer>();
+            pen = new Point(pos);
+            vector = new Vector();
+
+            this.hashPos = 0;
+
+            // Complete hilbert curve
+            addPoint();
+
+            generateCurve(order, Vector.RIGHT);
         }
 
-        return hilbertCurve;
-    }
+    // Methods
+        private void generateCurve(int order, double direction)
+        // Generates the hilbert curve
+        {
 
-    public void baseCurve(Map<Point, Integer> hilbertCurve)
-    {
-        vector.setDirection(Vector.Direction.RIGHT);
-        pen = vector.step(pen);
-    }
+            // Base case
+            if(order == 1)
+            {
+                baseCurve(direction);
+                return;
+            }
 
-    //Getters/setters
+            vector.rotate(direction);
+            generateCurve(order - 1, -direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            vector.rotate(-direction);
+            generateCurve(order - 1, direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            generateCurve(order - 1, direction);
+            vector.rotate(-direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            generateCurve(order - 1, -direction);
+            vector.rotate(direction);
+        }
+
+        private void baseCurve(double direction)
+        // This is the base case of the hilbert curve
+        {
+            vector.rotate(direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            vector.rotate(-direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            vector.rotate(-direction);
+
+            pen = vector.step(pen);
+            addPoint();
+
+            vector.rotate(direction);
+        }
+
+        private void addPoint()
+        // Adds a point to the hilbert curve
+        {
+            hilbertCurve.put(new Point(pen), hashPos);
+
+            hashPos++;
+        }
+
+    // Getters/setters
+        public LinkedHashMap<Point, Integer> getCurve()
+        {
+            return hilbertCurve;
+        }
 }

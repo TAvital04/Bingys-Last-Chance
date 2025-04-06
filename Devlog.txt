@@ -1,0 +1,16 @@
+Day 1:
+    -worked on prototype 1
+
+Day 2:
+    -finished prototype 1
+
+Day 3:
+    -worked on prototype 2
+
+Day 4
+    -deleted everything from day 3
+
+    -got prototype 2 working
+    -deleted everything from days 1 and 2
+
+    -now i have a hilbert curve of any order i want drawn with the correct proportions

@@ -1,50 +1,52 @@
+// Class
 public class Vector 
 {
     // Declare variables
-    int magnetude;
-    Direction direction;
+        double magnetude;
+        double angle;
+        /*
+        * A direction of 0 degrees faces right
+        *  -this allows for me to use sin() and cos() functions more intuitively
+        */
 
-    // Constructors
-    public Vector()
-    {
-        this.magnetude = 1;
-        this.direction = Direction.UP;
-    }
+        public static final int DIAC = 360;
+            // Degrees in a circle
+        public static final double LEFT = -90;
+        public static final double RIGHT = 90;
 
-    // Enums
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT;
-    }
-    
-    // Functions
-    public Point step(Point p)
-    {
-
-    }
-
-    // Getters/setters  
-        // Direction
-        public void setDirection(Direction direction)
+        // Constructors
+        public Vector()
         {
-            this.direction = direction;
+            this.magnetude = 1;
+            this.angle = 270;
         }
 
-        // Axies
-        public int getHAxis()
+    // Functions
+        public Point step(Point p)
         {
-            if(this.direction == Direction.LEFT)
-            {
-                return -1;
-            }
-            else if(this.direction == Direction.RIGHT)
+            double x = p.getX() + (this.magnetude * Math.cos(Math.toRadians(this.angle)));
+            double y = p.getY() + (this.magnetude * Math.sin(Math.toRadians(this.angle)));
+
+            return new Point(x, y);
+        }
+
+        public void rotate(double direction)
+        {
+
+            this.angle = ((this.angle + direction) % DIAC); 
+        }
+        public int getSign(double direction)
+        {
+            if(direction >= 0)
             {
                 return 1;
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
 
+    // Getters/setters  
         
 }

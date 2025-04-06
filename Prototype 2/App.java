@@ -23,7 +23,7 @@ public class App
             window.setSize(WINDOW_SIZE + (int)(WINDOW_SIZE * .05), WINDOW_SIZE + (int)(WINDOW_SIZE * .05));
 
             // Start the display
-            Display display = new Display(WINDOW_SIZE, 1);
+            Display display = new Display(WINDOW_SIZE, 7);
             window.add(display);
         }
 }
