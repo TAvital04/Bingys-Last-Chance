@@ -1,59 +1,83 @@
 import javax.swing.JPanel;
-import java.awt.Graphics;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.awt.*;
 
 public class Display extends JPanel
 {
     // Declare variables
         private double scaleFactor;
-        private Graphics graphic;
 
-        private HilbertCurve hilbertCurve;
-        private LinkedHashMap<Point, Integer> points;
+        private Maze maze;
 
     // Constructors
         public Display(int windowSize, int order)
         {
             this.scaleFactor = windowSize / (Math.pow(2, order));
 
-            this.hilbertCurve = new HilbertCurve(new Point(0, 0), order);
-            points = hilbertCurve.getCurve();
+            this.maze = new Maze(new HilbertCurve(new Point(0, 0), order));
         }
 
         @Override
         public void paintComponent(Graphics graphic)
         {
-            this.graphic = graphic;
+            // Super call
+            super.paintComponent(graphic);
+            setBackground(Color.BLACK);
 
-            displayCurve();
+            // Draw
+            displayMaze(graphic);
+
+            displayEnds(graphic);
         }
 
     // Functions
-        public void displayCurve()
-        // Iterates over the keys of the hashmap (the points that make up the curve),
-            // and draws a line between each point
+        public void displayMaze(Graphics graphic)
+        // Iterates over the keys of the hashmap
+            // and draws a line between a key and it's value pair
         {
-            Point previous = null;
-            for(Map.Entry<Point, Integer> entry: points.entrySet())
+            for(GridPoint entry: maze.getMaze().keySet())
             {
-                if(previous != null)
+                if(maze.getMaze().get(entry) != null)
                 {
-                    drawLine(previous, entry.getKey());
+                    // Draw the line
+                    drawLine(graphic, entry, maze.getMaze().get(entry));
                 }
-
-                previous = entry.getKey();
             }
         }
-
-        public void drawLine(Point previous, Point current)
+        public void drawLine(Graphics graphic, GridPoint previous, GridPoint next)
         {
+            // Declare variables
             int x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
             int y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
-            int toX = (int)((current.getX() * scaleFactor) + (scaleFactor/ 2));
-            int toY = -(int)((current.getY() * scaleFactor) - (scaleFactor/ 2));
+            int toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
+            int toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
 
-            graphic.drawLine(x, y, toX, toY);
+            Graphics2D g2d = (Graphics2D)graphic;
+            g2d.setStroke(new BasicStroke((float)(scaleFactor / 2 + scaleFactor / 3)));
+            g2d.setColor(Color.DARK_GRAY);
+
+            // Draw
+            g2d.drawLine(x, y, toX, toY);
+        }
+
+        public void displayEnds(Graphics graphic)
+        {
+            // Declare variables
+            int diameter = (int)(scaleFactor/4);
+            int radius = diameter/2;
+
+            int startX, startY;
+            int endX, endY;
+
+            // Start
+            graphic.setColor(Color.GREEN);
+            startX = (maze.getStart().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            startY = (maze.getStart().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            graphic.fillOval(startX, startY, diameter, diameter);
+
+            // End
+            graphic.setColor(Color.RED);
+            endX = (maze.getEnd().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            endY = (maze.getEnd().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            graphic.fillOval(endX, endY, diameter, diameter);
         }
 }

@@ -14,7 +14,7 @@ public class Vector
         public static final double LEFT = -90;
         public static final double RIGHT = 90;
 
-        // Constructors
+    // Constructor
         public Vector()
         {
             this.magnetude = 1;
@@ -28,6 +28,14 @@ public class Vector
             double y = p.getY() + (this.magnetude * Math.sin(Math.toRadians(this.angle)));
 
             return new Point(x, y);
+        }
+
+        public GridPoint step(GridPoint p)
+        {
+            int x = p.getX() + (int)(this.magnetude * Math.cos(Math.toRadians(this.angle)));
+            int y = p.getY() + (int)(this.magnetude * Math.sin(Math.toRadians(this.angle)));
+
+            return new GridPoint(x, y);
         }
 
         public void rotate(double direction)

@@ -1,4 +1,6 @@
 // Imports
+import java.awt.Color;
+
 import javax.swing.JFrame;
 
 // Class
@@ -23,7 +25,7 @@ public class App
             window.setSize(WINDOW_SIZE + (int)(WINDOW_SIZE * .05), WINDOW_SIZE + (int)(WINDOW_SIZE * .05));
 
             // Start the display
-            Display display = new Display(WINDOW_SIZE, 7);
+            Display display = new Display(WINDOW_SIZE, 2);
             window.add(display);
         }
 }

@@ -1,7 +1,7 @@
 public class Point
 {
     // Declare variables
-        double x, y;
+        private double x, y;
 
     // Constructors
         public Point()
@@ -21,6 +21,7 @@ public class Point
         }
 
     // Functions
+        @Override
         public String toString()
         {
             return "(" + this.x + ", " + this.y + ")";
