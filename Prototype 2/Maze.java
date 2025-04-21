@@ -5,17 +5,17 @@ public class Maze
 {
     // Declare variables
         private HilbertCurve curve;
-        private LinkedHashMap<GridPoint, GridPoint> maze;
+        private LinkedHashMap<Point, Point> maze;
 
-        private GridPoint start, end;
+        private Point start, end;
 
     // Constructor
         public Maze(HilbertCurve curve)
         {
             this.curve = curve;
-            this.maze = new LinkedHashMap<GridPoint, GridPoint>();
+            this.maze = new LinkedHashMap<Point, Point>();
 
-            for(Map.Entry<GridPoint, Integer> entry: curve.getCurve().entrySet())
+            for(Map.Entry<Point, Integer> entry: curve.getCurve().entrySet())
             {
                 map(entry);
             }
@@ -24,7 +24,7 @@ public class Maze
         }
 
     // Functions
-        private void map(Map.Entry<GridPoint, Integer> entry)
+        private void map(Map.Entry<Point, Integer> entry)
         /*
          * -Take an entry
          * -Choose a random neighboring cell
@@ -33,31 +33,31 @@ public class Maze
          */
         {
             // Declare variables
-            GridPoint entryLoc = entry.getKey();
-            GridPoint temp;
+            Point entryLoc = entry.getKey();
+            Point temp;
             
-            ArrayList<GridPoint> neighbors = new ArrayList<GridPoint>();
+            ArrayList<Point> neighbors = new ArrayList<Point>();
 
             // Find all proceeding neighbors and add them to a list
-            temp = new GridPoint(entryLoc.getX(), entryLoc.getY() - 1);
+            temp = new Point(entryLoc.getX(), entryLoc.getY() - 1);
             if(curve.getCurve().containsKey(temp) && curve.getCurve().get(temp) > entry.getValue())
             {
                 neighbors.add(temp);
             }
 
-            temp = new GridPoint(entryLoc.getX(), entryLoc.getY() + 1);
+            temp = new Point(entryLoc.getX(), entryLoc.getY() + 1);
             if(curve.getCurve().containsKey(temp) && curve.getCurve().get(temp) > entry.getValue())
             {
                 neighbors.add(temp);
             }
 
-            temp = new GridPoint(entryLoc.getX() - 1, entryLoc.getY());
+            temp = new Point(entryLoc.getX() - 1, entryLoc.getY());
             if(curve.getCurve().containsKey(temp) && curve.getCurve().get(temp) > entry.getValue())
             {
                 neighbors.add(temp);
             }
 
-            temp = new GridPoint(entryLoc.getX() + 1, entryLoc.getY());
+            temp = new Point(entryLoc.getX() + 1, entryLoc.getY());
             if(curve.getCurve().containsKey(temp) && curve.getCurve().get(temp) > entry.getValue())
             {
                 neighbors.add(temp);
@@ -93,31 +93,31 @@ public class Maze
                 startX = (int)(Math.random() * sideLength);
                 startY = (int)(Math.random() * sideLength);
 
-                start = new GridPoint(startX, startY);
+                start = new Point(startX, startY);
 
                 // End
                 endX = (int)(Math.random() * sideLength);
                 endY = (int)(Math.random() * sideLength);
 
-                end = new GridPoint(endX, endY);
+                end = new Point(endX, endY);
         }
 
     // Getters/setters
-        public LinkedHashMap<GridPoint, GridPoint> getMaze()
+        public LinkedHashMap<Point, Point> getMaze()
         {
             return maze;
         }
 
-        public LinkedHashMap<GridPoint, Integer> getCurve()
+        public LinkedHashMap<Point, Integer> getCurve()
         {
             return curve.getCurve();
         }
 
-        public GridPoint getStart()
+        public Point getStart()
         {
             return this.start;
         }
-        public GridPoint getEnd()
+        public Point getEnd()
         {
             return this.end;
         }

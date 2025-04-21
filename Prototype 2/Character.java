@@ -1,21 +1,38 @@
-// Imports
-import java.awt.event.*;
-
 // Class
-public class Character
+public abstract class Character
 {
     // Declare variables
-
+    private int x, y;
 
     // Constructor
     public Character(int x, int y)
     {
-        
+        this.x = x;
+        this.y = y;
     }
 
-    // Functions
-    public void keyPressed(KeyEvent e)
+    public Character(Point p)
     {
-        System.out.println(e);
+        this.x = p.getX();
+        this.y = p.getY();
+    }
+
+    // Getters/setters
+    public int getX()
+    {
+        return this.x;
+    }
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+
+    public int getY()
+    {
+        return this.y;
+    }
+    public void setY(int y)
+    {
+        this.y = y;
     }
 }

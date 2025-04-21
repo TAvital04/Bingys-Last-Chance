@@ -1,5 +1,5 @@
 // Imports
-import java.awt.Color;
+import javax.swing.Timer;
 
 import javax.swing.JFrame;
 
@@ -7,25 +7,30 @@ import javax.swing.JFrame;
 public class App
 {
     // Declare variables
-        private static final int GRID_SIZE = 16;
-        private static final int WINDOW_SIZE = GRID_SIZE * 50;
-
         private static JFrame window;
 
+        private static final int GRID_SIZE = 16;
+        private static final int WINDOW_SIZE = (GRID_SIZE * 50) + (int)(GRID_SIZE * 50 * .05);
+
+        private static Display display;
+        private static Timer timer;
+
     // Main
-        public static void main(String[] args)
-        {
-            // Create the window
+        public static void main(String[] args) {
             window = new JFrame("Bingy's Last Prototype");
-
-            // Configure the window
-            window.setVisible(true);
-            window.setSize(WINDOW_SIZE, WINDOW_SIZE);
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(WINDOW_SIZE + (int)(WINDOW_SIZE * .05), WINDOW_SIZE + (int)(WINDOW_SIZE * .05));
-
-            // Start the display
-            Display display = new Display(WINDOW_SIZE, 2);
+        
+            display = new Display(WINDOW_SIZE, 3);
             window.add(display);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setSize(WINDOW_SIZE, WINDOW_SIZE);
+            window.setVisible(true);
+        
+            display.setFocusable(true);
+            display.requestFocus();
+
+            timer = new Timer(16, e -> {
+                display.update();
+            });
+            timer.start();
         }
 }

@@ -1,16 +1,14 @@
 // Imports
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 //Class
 public class HilbertCurve
 {
     // Declare variables
-        private LinkedHashMap<GridPoint, Integer> hilbertCurve;
+        private LinkedHashMap<Point, Integer> hilbertCurve;
         private int order;
 
-        private GridPoint pen;
+        private Point pen;
         private Vector vector;
 
         private int hashPos;
@@ -19,10 +17,10 @@ public class HilbertCurve
         public HilbertCurve(Point pos, int order)
         {
             // Instantiate variables
-            this.hilbertCurve = new LinkedHashMap<GridPoint, Integer>();
+            this.hilbertCurve = new LinkedHashMap<Point, Integer>();
             this.order = order;
 
-            this.pen = new GridPoint(pos);
+            this.pen = new Point(pos);
             this.vector = new Vector();
 
             this.hashPos = 0;
@@ -34,7 +32,7 @@ public class HilbertCurve
         }
 
     // Methods
-        private void generateCurve(int order, double direction)
+        private void generateCurve(int order, int direction)
         // Generates the hilbert curve
         {
 
@@ -67,7 +65,7 @@ public class HilbertCurve
             vector.rotate(direction);
         }
 
-        private void baseCurve(double direction)
+        private void baseCurve(int direction)
         // This is the base case of the hilbert curve
         {
             vector.rotate(direction);
@@ -91,13 +89,13 @@ public class HilbertCurve
         private void addPoint()
         // Adds a point to the hilbert curve
         {
-            hilbertCurve.put(new GridPoint(pen), hashPos);
+            hilbertCurve.put(new Point(pen), hashPos);
 
             hashPos++;
         }
 
     // Getters/setters
-        public LinkedHashMap<GridPoint, Integer> getCurve()
+        public LinkedHashMap<Point, Integer> getCurve()
         {
             return hilbertCurve;
         }

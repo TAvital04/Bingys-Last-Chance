@@ -2,22 +2,56 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 public class Display extends JPanel
+/*
+ * -Draws all calculations on the screen in a way that is independant of
+ *      previous calculations
+ */
 {
     // Declare variables
-        private double scaleFactor;
+        private int scaleFactor;
+
+        private Controller controller;
 
         private Maze maze;
+
+        private Player player;
+
+        private Point start, end;
 
     // Constructors
         public Display(int windowSize, int order)
         {
-            this.scaleFactor = windowSize / (Math.pow(2, order));
+            // Configure the window
+            this.scaleFactor = windowSize / (int)(Math.pow(2, order));
+            
+            // Configure the controller
+            this.controller = new Controller();
+            this.addKeyListener(controller);
+            this.setFocusable(true);
 
+            // Configure the maze
             this.maze = new Maze(new HilbertCurve(new Point(0, 0), order));
+            this.start = maze.getStart();
+            this.end = maze.getEnd();
+
+            // Configure the player
+            this.player = new Player(start.getX() * scaleFactor + scaleFactor/2 - scaleFactor/8, start.getY() * scaleFactor + scaleFactor/2 - scaleFactor/8, controller);
         }
 
+        public void update()
+        {
+            player.move();
+
+            repaint();
+        }
+
+    // Maze functions
         @Override
         public void paintComponent(Graphics graphic)
+        /*
+         * -Instantiates the graphics class
+         * -Passes the graphic component to all drawing methods
+         */
         {
             // Super call
             super.paintComponent(graphic);
@@ -26,15 +60,16 @@ public class Display extends JPanel
             // Draw
             displayMaze(graphic);
 
-            displayEnds(graphic);
+            displayCharacter(graphic);
         }
 
-    // Functions
         public void displayMaze(Graphics graphic)
-        // Iterates over the keys of the hashmap
-            // and draws a line between a key and it's value pair
+        /*
+         * -Iterates over the keys of the hashmap
+         *      and draws a line between a key and it's value pair
+         */
         {
-            for(GridPoint entry: maze.getMaze().keySet())
+            for(Point entry: maze.getMaze().keySet())
             {
                 if(maze.getMaze().get(entry) != null)
                 {
@@ -42,42 +77,76 @@ public class Display extends JPanel
                     drawLine(graphic, entry, maze.getMaze().get(entry));
                 }
             }
+
+            displayEnds(graphic);
         }
-        public void drawLine(Graphics graphic, GridPoint previous, GridPoint next)
+        public void drawLine(Graphics graphic, Point previous, Point next)
+        // Draws a line betweeen two points
         {
             // Declare variables
-            int x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
-            int y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
-            int toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
-            int toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
+            int x;
+            int y;
+            int toX;
+            int toY;
 
-            Graphics2D g2d = (Graphics2D)graphic;
+            Graphics2D g2d;
+
+            // Start
+            x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
+            y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
+            toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
+            toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
+
+            g2d = (Graphics2D)graphic;
+
             g2d.setStroke(new BasicStroke((float)(scaleFactor / 2 + scaleFactor / 3)));
             g2d.setColor(Color.DARK_GRAY);
 
             // Draw
             g2d.drawLine(x, y, toX, toY);
         }
-
         public void displayEnds(Graphics graphic)
+        /*
+         * -Displays the start and end flags on the screen
+         *      -does not handle collisions
+         */
         {
             // Declare variables
-            int diameter = (int)(scaleFactor/4);
-            int radius = diameter/2;
-
             int startX, startY;
             int endX, endY;
 
+            int diameter;
+            int radius;
+
             // Start
+            diameter = (int)(scaleFactor/4);
+            radius = diameter/2;
+
+            startX = (start.getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            startY = (start.getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+
             graphic.setColor(Color.GREEN);
-            startX = (maze.getStart().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
-            startY = (maze.getStart().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
             graphic.fillOval(startX, startY, diameter, diameter);
 
             // End
             graphic.setColor(Color.RED);
-            endX = (maze.getEnd().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
-            endY = (maze.getEnd().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            endX = (end.getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            endY = (end.getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
             graphic.fillOval(endX, endY, diameter, diameter);
+        }
+
+    // Character functions
+        public void displayCharacter(Graphics graphic)
+        /*
+         * -Displays the character on the screen
+         *      -does not handle movement
+         *      -does not handle collisions
+         */
+        {
+            int diameter = (int)(scaleFactor/4);
+
+            graphic.setColor(Color.BLUE);
+
+            graphic.fillOval(player.getX(), player.getY(), diameter, diameter);
         }
 }
