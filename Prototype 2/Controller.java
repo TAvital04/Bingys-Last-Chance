@@ -32,7 +32,6 @@ public class Controller implements KeyListener
         {
             case KeyEvent.VK_W: 
                 upPressed = false; 
-                System.out.println(e.getKeyChar());
                 break;
             case KeyEvent.VK_S: 
                 downPressed = false; 

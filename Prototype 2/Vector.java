@@ -2,74 +2,76 @@
 public class Vector 
 {
     // Declare variables
-        int magnetude;
-        int angle;
-        /*
-        * A direction of 0 degrees faces right
-        *  -this allows for me to use sin() and cos() functions more intuitively
-        */
-
-        public static final int DIAC = 360;
-            // Degrees in a circle
-        public static final int LEFT = -90;
-        public static final int RIGHT = 90;
+        private int dx, dy;
 
     // Constructor
         public Vector()
         {
-            this.magnetude = 1;
-            this.angle = 270;
+            dx = 0;
+            dy = -1;
         }
-        public Vector(int magnetude, int angle)
+
+        public Vector(int dx, int dy)
         {
-            this.magnetude = magnetude;
-            this.angle = angle;
+            this.dx = dx;
+            this.dy = dy;
         }
 
     // Functions
         public Point step(Point p)
         {
-            int x = p.getX() + getHAxis();
-            int y = p.getY() + getVAxis();
+            int x = p.getX() + dx;
+            int y = p.getY() + dy;
 
             return new Point(x, y);
         }
 
         public void rotate(int direction)
         {
-            this.angle = ((this.angle + direction) % DIAC); 
-        }
+            int angle;
+            int magnetude;
 
-        public int getSign(int direction)
-        {
-            if(direction >= 0)
+            if(dx == 0)
             {
-                return 1;
+                if(dy > 0)
+                {
+                    angle = 270;
+                }
+                else
+                {
+                    angle = 90;
+                }
             }
             else
             {
-                return -1;
+                angle = (int) Math.tanh(dy/dx);
             }
+
+            angle+= direction;
+
+            magnetude = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+            dx = magnetude * ((int) (Math.cos(Math.toRadians(angle))));
+            dy = magnetude * ((int) (Math.sin(Math.toRadians(angle)))); 
+        }
+
+        public void update(int dx, int dy)
+        {
+            
+        }
+
+        public void getSign()
+        {
+            
         }
 
     // Getters/setters  
         public int getHAxis()
         {
-            return (int)(this.magnetude * Math.cos(Math.toRadians(this.angle)));
+            return dx;
         }
-
         public int getVAxis()
         {
-            return (int)(this.magnetude * Math.sin(Math.toRadians(this.angle)));
-        }
-
-        public void update(int dx, int dy)
-        // Sets the magnitude and direction
-        {
-            // Updates the magnetude using the pythagorean theorem
-            magnetude += (int)(Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
-
-            // Updates the direction using tangeant values
-            
+            return dy;
         }
 }

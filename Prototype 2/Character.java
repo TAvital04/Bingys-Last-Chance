@@ -4,6 +4,8 @@ public abstract class Character
     // Declare variables
     private int x, y;
 
+    Vector vector = new Vector(0, 0);
+
     // Constructor
     public Character(int x, int y)
     {
@@ -34,5 +36,20 @@ public abstract class Character
     public void setY(int y)
     {
         this.y = y;
+    }
+
+    public Point getPos()
+    {
+        return new Point(x, y);
+    }
+    public void setPos(Point pos)
+    {
+        x = pos.getX();
+        y = pos.getY();
+    }
+
+    public Vector getVector()
+    {
+        return vector;
     }
 }

@@ -104,6 +104,7 @@ public class Display extends JPanel
 
             // Draw
             g2d.drawLine(x, y, toX, toY);
+            g2d.setStroke(new BasicStroke(1));
         }
         public void displayEnds(Graphics graphic)
         /*

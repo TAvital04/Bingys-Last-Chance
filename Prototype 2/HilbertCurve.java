@@ -28,7 +28,7 @@ public class HilbertCurve
             // Complete hilbert curve
             addPoint();
 
-            generateCurve(order, Vector.RIGHT);
+            generateCurve(order, 0);
         }
 
     // Methods
