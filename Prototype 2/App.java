@@ -19,7 +19,7 @@ public class App
         public static void main(String[] args) {
             window = new JFrame("Bingy's Last Prototype");
         
-            display = new Display(WINDOW_SIZE, 3);
+            display = new Display(WINDOW_SIZE, 2);
             window.add(display);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setSize(WINDOW_SIZE, WINDOW_SIZE);

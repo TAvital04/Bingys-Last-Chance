@@ -19,6 +19,7 @@ public class Vector
 
     // Functions
         public Point step(Point p)
+        // Performs a vector addition on the position
         {
             int x = p.getX() + dx;
             int y = p.getY() + dy;
@@ -27,42 +28,23 @@ public class Vector
         }
 
         public void rotate(int direction)
+        // Performs a rotation of the vector in the given degrees
         {
             int angle;
             int magnetude;
 
-            if(dx == 0)
-            {
-                if(dy > 0)
-                {
-                    angle = 270;
-                }
-                else
-                {
-                    angle = 90;
-                }
-            }
-            else
-            {
-                angle = (int) Math.tanh(dy/dx);
-            }
+            angle = (getAngle() + direction) % 360;
+            magnetude = getMagnetude();
 
-            angle+= direction;
-
-            magnetude = (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-
-            dx = magnetude * ((int) (Math.cos(Math.toRadians(angle))));
-            dy = magnetude * ((int) (Math.sin(Math.toRadians(angle)))); 
+            dx = (int) Math.round(magnetude * ((Math.cos(Math.toRadians(angle)))));
+            dy = (int) Math.round(magnetude * ((Math.sin(Math.toRadians(angle))))); 
         }
 
         public void update(int dx, int dy)
+        // Updates the vector based on given values
         {
-            
-        }
-
-        public void getSign()
-        {
-            
+            this.dx += dx;
+            this.dy += dy;
         }
 
     // Getters/setters  
@@ -73,5 +55,28 @@ public class Vector
         public int getVAxis()
         {
             return dy;
+        }
+
+        public int getMagnetude()
+        {
+            return (int) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        }
+        public int getAngle()
+        {
+            if(dx == 0)
+            {
+                if(dy > 0)
+                {
+                    return 90;
+                }
+                else
+                {
+                    return 270;
+                }
+            }
+            else
+            {
+                return (int) Math.toDegrees(Math.atan2(dy, dx));
+            }
         }
 }

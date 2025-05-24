@@ -1,5 +1,6 @@
 // Imports
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 //Class
 public class HilbertCurve
@@ -28,7 +29,7 @@ public class HilbertCurve
             // Complete hilbert curve
             addPoint();
 
-            generateCurve(order, 0);
+            generateCurve(order, 90);
         }
 
     // Methods

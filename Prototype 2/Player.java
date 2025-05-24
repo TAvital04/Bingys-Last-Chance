@@ -40,6 +40,8 @@ public class Player extends Character
             movement.update(1, 0);
         }
 
+        System.out.printf("%s ", getPos());
         setPos(movement.step(getPos()));
+        System.out.printf("-> %s\n", getPos());
     }
 }

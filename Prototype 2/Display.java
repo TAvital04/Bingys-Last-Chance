@@ -55,11 +55,11 @@ public class Display extends JPanel
         {
             // Super call
             super.paintComponent(graphic);
-            setBackground(Color.BLACK);
 
             // Draw
-            displayMaze(graphic);
+            setBackground(Color.BLACK);
 
+            displayMaze(graphic);
             displayCharacter(graphic);
         }
 
@@ -105,7 +105,10 @@ public class Display extends JPanel
             // Draw
             g2d.drawLine(x, y, toX, toY);
             g2d.setStroke(new BasicStroke(1));
+
+            //System.out.printf("X: %d\nY: %d\nTOX: %d\nTOY %d\n", x, y, toX, toY);
         }
+        
         public void displayEnds(Graphics graphic)
         /*
          * -Displays the start and end flags on the screen
