@@ -36,8 +36,8 @@ public class Vector
             angle = (getAngle() + direction) % 360;
             magnetude = getMagnetude();
 
-            dx = (int) Math.round(magnetude * ((Math.cos(Math.toRadians(angle)))));
-            dy = (int) Math.round(magnetude * ((Math.sin(Math.toRadians(angle))))); 
+            dx = (int) Math.round(magnetude * Math.cos(Math.toRadians(angle)));
+            dy = (int) Math.round(magnetude * Math.sin(Math.toRadians(angle))); 
         }
 
         public void update(int dx, int dy)
@@ -46,15 +46,29 @@ public class Vector
             this.dx += dx;
             this.dy += dy;
         }
+        public void update(Vector vector)
+        {
+            dx += vector.getHAxis();
+            dy += vector.getVAxis();
+        }
 
     // Getters/setters  
         public int getHAxis()
         {
             return dx;
         }
+        public void setHAxis(int dx)
+        {
+            this.dx = dx;
+        }
+
         public int getVAxis()
         {
             return dy;
+        }
+        public void setVAxis(int dy)
+        {
+            this.dy = dy;
         }
 
         public int getMagnetude()
@@ -78,5 +92,11 @@ public class Vector
             {
                 return (int) Math.toDegrees(Math.atan2(dy, dx));
             }
+        }
+
+    // toString
+        public String toString()
+        {
+            return "(" + getHAxis() + ", " + getVAxis() + ")";
         }
 }

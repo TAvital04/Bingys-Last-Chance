@@ -28,7 +28,7 @@ public class App
             display.setFocusable(true);
             display.requestFocus();
 
-            timer = new Timer(16, e -> {
+            timer = new Timer(8, e -> {
                 display.update();
             });
             timer.start();

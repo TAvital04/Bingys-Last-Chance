@@ -4,6 +4,9 @@ public class Player extends Character
     private Controller controller;
     private Movement movement;
 
+    private int acceleration = 2;
+    private Vector friction = new Vector(1, 1);
+
     // Contructor
     public Player(int x, int y, Controller controller)
     {
@@ -12,7 +15,7 @@ public class Player extends Character
         this.controller = controller;
         this.movement = new Movement();
     }
-    public Player(Point pos, Controller controller)
+    public Player(Point pos, Controller controller, int maxVelocity)
     {
         super(pos.getX(), pos.getY());
 
@@ -25,23 +28,23 @@ public class Player extends Character
     {
         if(controller.getUp())
         {
-            movement.update(0, -1);
+            movement.update(0, -acceleration);
         }
         if(controller.getDown())
         {
-            movement.update(0, 1);
+            movement.update(0, acceleration);
         }
         if(controller.getLeft())
         {
-            movement.update(-1, 0);
+            movement.update(-acceleration, 0);
         }
         if(controller.getRight())
         {
-            movement.update(1, 0);
+            movement.update(acceleration, 0);
         }
 
-        System.out.printf("%s ", getPos());
+        movement.friction(friction);
+
         setPos(movement.step(getPos()));
-        System.out.printf("-> %s\n", getPos());
     }
 }
