@@ -10,39 +10,14 @@ public class Display extends JPanel
     // Declare variables
         private int scaleFactor;
 
-        private Controller controller;
-
-        private Maze maze;
-
-        private Player player;
-
-        private Point start, end;
+        private Level level;
 
     // Constructors
-        public Display(int windowSize, int order)
+        public Display(int windowSize, Level level)
         {
-            // Configure the window
-            this.scaleFactor = windowSize / (int)(Math.pow(2, order));
-            
-            // Configure the controller
-            this.controller = new Controller();
-            this.addKeyListener(controller);
-            this.setFocusable(true);
+            scaleFactor = windowSize / (int)(Math.pow(2, level.getOrder()));
 
-            // Configure the maze
-            this.maze = new Maze(new HilbertCurve(new Point(0, 0), order));
-            this.start = maze.getStart();
-            this.end = maze.getEnd();
-
-            // Configure the player
-            this.player = new Player(start.getX() * scaleFactor + scaleFactor/2 - scaleFactor/8, start.getY() * scaleFactor + scaleFactor/2 - scaleFactor/8, controller);
-        }
-
-        public void update()
-        {
-            player.move();
-
-            repaint();
+            this.level = level;
         }
 
     // Maze functions
@@ -69,12 +44,12 @@ public class Display extends JPanel
          *      and draws a line between a key and it's value pair
          */
         {
-            for(Point entry: maze.getMaze().keySet())
+            for(Point entry: level.getMaze().getMap().keySet())
             {
-                if(maze.getMaze().get(entry) != null)
+                if(level.getMaze().getMap().get(entry) != null)
                 {
                     // Draw the line
-                    drawLine(graphic, entry, maze.getMaze().get(entry));
+                    drawLine(graphic, entry, level.getMaze().getMap().get(entry));
                 }
             }
 
@@ -124,16 +99,16 @@ public class Display extends JPanel
             diameter = (int)(scaleFactor/4);
             radius = diameter/2;
 
-            startX = (start.getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
-            startY = (start.getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            startX = (level.getMaze().getStart().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            startY = (level.getMaze().getStart().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
 
             graphic.setColor(Color.GREEN);
             graphic.fillOval(startX, startY, diameter, diameter);
 
             // End
             graphic.setColor(Color.RED);
-            endX = (end.getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
-            endY = (end.getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            endX = (level.getMaze().getEnd().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
+            endY = (level.getMaze().getEnd().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - radius);
             graphic.fillOval(endX, endY, diameter, diameter);
         }
 
@@ -149,6 +124,6 @@ public class Display extends JPanel
 
             graphic.setColor(Color.BLUE);
 
-            graphic.fillOval(player.getX(), player.getY(), diameter, diameter);
+            graphic.fillOval(level.getPlayer().getX(), level.getPlayer().getY(), diameter, diameter);
         }
 }

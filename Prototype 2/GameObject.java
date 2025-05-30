@@ -1,5 +1,5 @@
 // Class
-public abstract class Character
+public abstract class GameObject
 {
     // Declare variables
     private int x, y;
@@ -7,13 +7,13 @@ public abstract class Character
     Vector vector = new Vector(0, 0);
 
     // Constructor
-    public Character(int x, int y)
+    public GameObject(int x, int y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public Character(Point p)
+    public GameObject(Point p)
     {
         this.x = p.getX();
         this.y = p.getY();

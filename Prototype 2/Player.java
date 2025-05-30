@@ -1,11 +1,11 @@
-public class Player extends Character
+public class Player extends GameObject
 {
     // Declare variables
     private Controller controller;
     private Movement movement;
 
-    private int acceleration = 2;
-    private Vector friction = new Vector(1, 1);
+    private int acceleration = 3;
+    private Vector friction = new Vector(2, 2);
 
     // Contructor
     public Player(int x, int y, Controller controller)

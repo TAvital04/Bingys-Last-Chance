@@ -1,6 +1,5 @@
 // Imports
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 //Class
 public class HilbertCurve

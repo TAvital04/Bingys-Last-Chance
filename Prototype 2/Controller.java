@@ -30,19 +30,25 @@ public class Controller implements KeyListener
     {
         switch (e.getKeyCode()) 
         {
-            case KeyEvent.VK_W: 
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP: 
                 upPressed = false; 
                 break;
             case KeyEvent.VK_S: 
+            case KeyEvent.VK_DOWN:
                 downPressed = false; 
                 break;
             case KeyEvent.VK_A: 
+            case KeyEvent.VK_LEFT:
                 leftPressed = false; 
                 break;
-            case KeyEvent.VK_D: 
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT: 
                 rightPressed = false; 
                 break;
         }
+
+        System.out.println(e.getKeyCode());
     }
 
     @Override public void keyTyped(KeyEvent e) {}

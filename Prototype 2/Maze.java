@@ -103,14 +103,9 @@ public class Maze
         }
 
     // Getters/setters
-        public LinkedHashMap<Point, Point> getMaze()
+        public LinkedHashMap<Point, Point> getMap()
         {
             return maze;
-        }
-
-        public LinkedHashMap<Point, Integer> getCurve()
-        {
-            return curve.getCurve();
         }
 
         public Point getStart()
