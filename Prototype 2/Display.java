@@ -13,10 +13,9 @@ public class Display extends JPanel
         private Level level;
 
     // Constructors
-        public Display(int windowSize, Level level)
+        public Display(int scaleFactor, Level level)
         {
-            scaleFactor = windowSize / (int)(Math.pow(2, level.getOrder()));
-
+            this.scaleFactor = scaleFactor;
             this.level = level;
         }
 
@@ -44,13 +43,20 @@ public class Display extends JPanel
          *      and draws a line between a key and it's value pair
          */
         {
-            for(Point entry: level.getMaze().getMap().keySet())
+            // for(Point entry: level.getMaze().getMap().keySet())
+            // {
+            //     if(level.getMaze().getMap().get(entry) != null)
+            //     {
+            //         // Draw the line
+            //         drawLine(graphic, entry, level.getMaze().getMap().get(entry));
+                    
+            //     }
+            // }
+
+            graphic.setColor(Color.RED);
+            for(Path step: level.getPath())
             {
-                if(level.getMaze().getMap().get(entry) != null)
-                {
-                    // Draw the line
-                    drawLine(graphic, entry, level.getMaze().getMap().get(entry));
-                }
+                graphic.fillRect(step.getX(), step.getY(), step.getWidth() - 10, step.getHeight()-10);
             }
 
             displayEnds(graphic);

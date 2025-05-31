@@ -47,8 +47,6 @@ public class Controller implements KeyListener
                 rightPressed = false; 
                 break;
         }
-
-        System.out.println(e.getKeyCode());
     }
 
     @Override public void keyTyped(KeyEvent e) {}
