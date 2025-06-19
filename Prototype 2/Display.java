@@ -36,6 +36,8 @@ public class Display extends JPanel
 
             displayMaze(graphic);
             displayCharacter(graphic);
+
+            displayGrid(graphic);
         }
 
         public void displayMaze(Graphics graphic)
@@ -52,35 +54,27 @@ public class Display extends JPanel
             displayEnds(graphic);
         }
         public void drawWall(Graphics graphic, Wall wall)
+        // Uses logic to determine rectangle parameters and then draws the rectangle
         {
-            
+            int x, y, width, height;
+
+            if(wall.getType() == Wall.Type.HORIZONTAL)
+            {
+                x = wall.getCol() * scaleFactor + scaleFactor/4;
+                y = -wall.getRow() * scaleFactor + scaleFactor/4;
+                width = scaleFactor + scaleFactor/2;
+                height = scaleFactor/2;
+            }
+            else
+            {
+                x = wall.getCol() * scaleFactor + scaleFactor/4;
+                y = -wall.getRow() * scaleFactor + scaleFactor/4;
+                width = scaleFactor/2;
+                height = scaleFactor + scaleFactor/2;
+            }
+
+            graphic.fillRect(x, y, width, height);
         }
-        // public void drawLine(Graphics graphic, Point previous, Point next)
-        // // Draws a line betweeen two points
-        // {
-        //     // Declare variables
-        //     int x;
-        //     int y;
-        //     int toX;
-        //     int toY;
-
-        //     Graphics2D g2d;
-
-        //     // Start
-        //     x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
-        //     y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
-        //     toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
-        //     toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
-
-        //     g2d = (Graphics2D)graphic;
-
-        //     g2d.setStroke(new BasicStroke((float)(scaleFactor / 2 + scaleFactor / 3)));
-        //     g2d.setColor(Color.DARK_GRAY);
-
-        //     // Draw
-        //     g2d.drawLine(x, y, toX, toY);
-        //     g2d.setStroke(new BasicStroke(1));
-        // }
         
         public void displayEnds(Graphics graphic)
         /*
@@ -124,6 +118,22 @@ public class Display extends JPanel
 
             graphic.setColor(Color.BLUE);
 
-            graphic.fillOval(level.getPlayer().getX(), level.getPlayer().getY(), diameter, diameter);
+            graphic.fillOval(level.getPlayer().getX() * scaleFactor + (int)(scaleFactor/2 - scaleFactor/8), level.getPlayer().getY() * scaleFactor + (int)(scaleFactor/2 - scaleFactor/8), diameter, diameter);
         }
+
+    public void displayGrid(Graphics graphic)
+    {
+        for(int i = 0; i < (int)(Math.pow(2, level.getOrder() + 1)); i++)
+        {
+            graphic.drawLine(0, i * 100, scaleFactor * (int)(Math.pow(2, level.getOrder())), i * 100);
+            graphic.drawLine(i * 100, 0, i * 100, scaleFactor * (int)(Math.pow(2, level.getOrder())));
+        }
+
+        graphic.setColor(Color.RED);
+        for(int i = 0; i < (int)(Math.pow(2, level.getOrder() + 1)); i++)
+        {
+            graphic.drawLine(0, i * scaleFactor, scaleFactor * (int)(Math.pow(2, level.getOrder())), i * scaleFactor);
+            graphic.drawLine(i * scaleFactor, 0, i * scaleFactor, scaleFactor * (int)(Math.pow(2, level.getOrder())));
+        }
+    }
 }

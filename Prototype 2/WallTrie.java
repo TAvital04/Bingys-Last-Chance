@@ -49,6 +49,14 @@ public class WallTrie
     {
         List<Wall> toArray = new ArrayList<Wall>();
 
+        for(Map<Integer, Wall> element: trie[0].values())
+        {
+            for(Wall wall: element.values())
+            {
+                toArray.add(wall);
+            }
+        }
+
         for(Map<Integer, Wall> element: trie[1].values())
         {
             for(Wall wall: element.values())

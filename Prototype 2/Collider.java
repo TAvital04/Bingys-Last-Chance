@@ -24,7 +24,7 @@ public class Collider
                     if(entry.getX() == maze.getMap().get(entry).getX())
                     {
                         col = entry.getX();
-                        row = Math.min(entry.getY(), maze.getMap().get(entry).getY());
+                        row = Math.max(entry.getY(), maze.getMap().get(entry).getY());
                         type = Wall.Type.VERTICAL;
                     }
                     else

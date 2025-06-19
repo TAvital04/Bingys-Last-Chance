@@ -32,4 +32,10 @@ public class Wall
     {
         return type;
     }
+
+    // toString
+    public String toString()
+    {
+        return String.format("col: %d\nrow: %d\ntype: %s\n", col, row, type);
+    }
 }
