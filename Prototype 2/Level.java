@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Level 
 {
     // Declare variables
@@ -8,8 +10,10 @@ public class Level
 
         private Player player;
 
+        private Collider collider;
+
     // Constructor
-        public Level(int order, Controller controller)
+        public Level(int scaleFactor, int order, Controller controller)
         {
             this.order = order;
             maze = new Maze(new HilbertCurve(new Point(0, 0), order));

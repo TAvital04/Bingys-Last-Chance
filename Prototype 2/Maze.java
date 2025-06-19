@@ -13,7 +13,7 @@ public class Maze
         public Maze(HilbertCurve curve)
         {
             this.curve = curve;
-            this.maze = new LinkedHashMap<Point, Point>();
+            maze = new LinkedHashMap<Point, Point>();
 
             for(Map.Entry<Point, Integer> entry: curve.getCurve().entrySet())
             // Map all entries in the curve to the maze
