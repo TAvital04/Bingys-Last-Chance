@@ -10,8 +10,6 @@ public class Level
 
         private Player player;
 
-        private Collider collider;
-
     // Constructor
         public Level(int scaleFactor, int order, Controller controller)
         {

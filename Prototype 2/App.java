@@ -46,7 +46,7 @@ public class App
 
             timer = new Timer(8, e -> {
                 level.update();
-                //display.repaint();
+                display.repaint();
             });
             timer.start();
         }

@@ -45,26 +45,9 @@ public class Display extends JPanel
          *      and draws a line between a key and it's value pair
          */
         {
-<<<<<<< HEAD
             for(Wall wall: level.getCollider().getWalls().toList())
             {
                 drawWall(graphic, wall);
-=======
-            // for(Point entry: level.getMaze().getMap().keySet())
-            // {
-            //     if(level.getMaze().getMap().get(entry) != null)
-            //     {
-            //         // Draw the line
-            //         drawLine(graphic, entry, level.getMaze().getMap().get(entry));
-                    
-            //     }
-            // }
-
-            graphic.setColor(Color.RED);
-            for(Path step: level.getPath())
-            {
-                graphic.fillRect(step.getX(), step.getY(), step.getWidth() - 10, step.getHeight()-10);
->>>>>>> b7d84030c77db8e6412bdae4aeb96db341306ea9
             }
 
             displayEnds(graphic);
@@ -134,7 +117,7 @@ public class Display extends JPanel
 
             graphic.setColor(Color.BLUE);
 
-            graphic.fillOval(level.getPlayer().getX() * scaleFactor + (int)(scaleFactor/2 - scaleFactor/8), level.getPlayer().getY() * scaleFactor + (int)(scaleFactor/2 - scaleFactor/8), diameter, diameter);
+            graphic.fillOval(level.getPlayer().getX(), level.getPlayer().getY(), diameter, diameter);
         }
 
     public void displayGrid(Graphics graphic)
