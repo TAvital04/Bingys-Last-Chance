@@ -44,43 +44,43 @@ public class Display extends JPanel
          *      and draws a line between a key and it's value pair
          */
         {
-            for(Point entry: level.getMaze().getMap().keySet())
+            for(Wall wall: level.getCollider().getWalls().toList())
             {
-                if(level.getMaze().getMap().get(entry) != null)
-                {
-                    // Draw the line
-                    drawLine(graphic, entry, level.getMaze().getMap().get(entry));
-                }
+                drawWall(graphic, wall);
             }
 
             displayEnds(graphic);
         }
-        public void drawLine(Graphics graphic, Point previous, Point next)
-        // Draws a line betweeen two points
+        public void drawWall(Graphics graphic, Wall wall)
         {
-            // Declare variables
-            int x;
-            int y;
-            int toX;
-            int toY;
-
-            Graphics2D g2d;
-
-            // Start
-            x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
-            y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
-            toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
-            toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
-
-            g2d = (Graphics2D)graphic;
-
-            g2d.setStroke(new BasicStroke((float)(scaleFactor / 2 + scaleFactor / 3)));
-            g2d.setColor(Color.DARK_GRAY);
-
-            // Draw
-            g2d.drawLine(x, y, toX, toY);
-            g2d.setStroke(new BasicStroke(1));
+            
         }
+        // public void drawLine(Graphics graphic, Point previous, Point next)
+        // // Draws a line betweeen two points
+        // {
+        //     // Declare variables
+        //     int x;
+        //     int y;
+        //     int toX;
+        //     int toY;
+
+        //     Graphics2D g2d;
+
+        //     // Start
+        //     x = (int)((previous.getX() * scaleFactor) + (scaleFactor/ 2));
+        //     y = -(int)((previous.getY() * scaleFactor) - (scaleFactor/ 2));
+        //     toX = (int)((next.getX() * scaleFactor) + (scaleFactor/ 2));
+        //     toY = -(int)((next.getY() * scaleFactor) - (scaleFactor/ 2));
+
+        //     g2d = (Graphics2D)graphic;
+
+        //     g2d.setStroke(new BasicStroke((float)(scaleFactor / 2 + scaleFactor / 3)));
+        //     g2d.setColor(Color.DARK_GRAY);
+
+        //     // Draw
+        //     g2d.drawLine(x, y, toX, toY);
+        //     g2d.setStroke(new BasicStroke(1));
+        // }
         
         public void displayEnds(Graphics graphic)
         /*

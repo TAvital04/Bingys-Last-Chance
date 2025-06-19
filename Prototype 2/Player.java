@@ -8,7 +8,7 @@ public class Player extends GameObject
     private Vector friction = new Vector(2, 2);
 
     // Contructor
-    public Player(int x, int y, Controller controller)
+    public Player(int x, int y, Controller controller, Collider collider)
     {
         super(x, y);
 

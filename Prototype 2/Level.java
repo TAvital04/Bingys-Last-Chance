@@ -3,6 +3,8 @@ public class Level
     // Declare variables
         private int order;
         private Maze maze;
+        
+        private Collider collider;
 
         private Player player;
 
@@ -12,7 +14,10 @@ public class Level
             this.order = order;
             maze = new Maze(new HilbertCurve(new Point(0, 0), order));
 
-            player = new Player(maze.getStart().getX(), maze.getStart().getY(), controller);
+            collider = new Collider(order);
+            collider.addWalls(maze);
+
+            player = new Player(maze.getStart().getX(), maze.getStart().getY(), controller, collider);
         }
 
     // Functions            
@@ -35,5 +40,10 @@ public class Level
         public Player getPlayer()
         {
             return player;
+        }
+
+        public Collider getCollider()
+        {
+            return collider;
         }
 }

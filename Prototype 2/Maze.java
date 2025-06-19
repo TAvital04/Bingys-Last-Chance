@@ -16,6 +16,7 @@ public class Maze
             this.maze = new LinkedHashMap<Point, Point>();
 
             for(Map.Entry<Point, Integer> entry: curve.getCurve().entrySet())
+            // Map all entries in the curve to the maze
             {
                 map(entry);
             }
