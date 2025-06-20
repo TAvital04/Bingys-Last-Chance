@@ -1,11 +1,13 @@
-public class Wall
+public class Path
 {
     // Variables
     int col, row;
     Type type;
 
+    boolean flag;
+
     // Constructor
-    public Wall(int col, int row, Type type)
+    public Path(int col, int row, Type type)
     {
         this.col = col;
         this.row = row;
@@ -31,6 +33,15 @@ public class Wall
     public Type getType()
     {
         return type;
+    }
+
+    public void setFlag(boolean flag)
+    {
+        this.flag = flag;
+    }
+    public boolean getFlag()
+    {
+        return flag;
     }
 
     // toString

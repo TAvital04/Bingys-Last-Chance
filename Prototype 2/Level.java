@@ -11,7 +11,7 @@ public class Level
         private Player player;
 
     // Constructor
-        public Level(int scaleFactor, int order, Controller controller)
+        public Level(int order, Controller controller)
         {
             this.order = order;
             maze = new Maze(new HilbertCurve(new Point(0, 0), order));
@@ -26,6 +26,7 @@ public class Level
         public void update()
         {
             player.move();
+            collider.collision(player);
         }
 
     // Getters/Setters

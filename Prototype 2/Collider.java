@@ -1,12 +1,12 @@
 public class Collider
 {
     // Variables
-        WallTrie walls;
+        PathTrie walls;
 
     // Constructors
         public Collider(int order)
         {
-            walls = new WallTrie(order);
+            walls = new PathTrie(order);
         }
 
     //Functions
@@ -18,30 +18,35 @@ public class Collider
                 {
                     // Variables
                     int col, row;
-                    Wall.Type type;
+                    Path.Type type;
 
                     // Determine wall type
                     if(entry.getX() == maze.getMap().get(entry).getX())
                     {
                         col = entry.getX();
                         row = Math.max(entry.getY(), maze.getMap().get(entry).getY());
-                        type = Wall.Type.VERTICAL;
+                        type = Path.Type.VERTICAL;
                     }
                     else
                     {
                         col = Math.min(entry.getX(), maze.getMap().get(entry).getX());
                         row = entry.getY();
-                        type = Wall.Type.HORIZONTAL;
+                        type = Path.Type.HORIZONTAL;
                     }
 
                     // Add the wall
-                    walls.add(new Wall(col, row, type));
+                    walls.add(new Path(col, row, type));
                 }
             }
         }
 
+        public void collision(Player player)
+        {
+            
+        }
+
     // Getters/setters
-    public WallTrie getWalls()
+    public PathTrie getWalls()
     {
         return walls;
     }

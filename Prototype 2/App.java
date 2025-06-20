@@ -29,7 +29,7 @@ public class App
             
             controller = new Controller();
 
-            level = new Level(scaleFactor, order, controller);
+            level = new Level(order, controller);
 
             display = new Display(scaleFactor, level);
 

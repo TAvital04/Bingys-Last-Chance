@@ -17,6 +17,10 @@ public class Display extends JPanel
         {
             this.scaleFactor = scaleFactor;
             this.level = level;
+
+            spawnCharacter();
+
+            level.getCollider().getWalls().
         }
 
     // Maze functions
@@ -35,8 +39,6 @@ public class Display extends JPanel
 
             displayMaze(graphic);
             displayCharacter(graphic);
-
-            displayGrid(graphic);
         }
 
         public void displayMaze(Graphics graphic)
@@ -45,31 +47,31 @@ public class Display extends JPanel
          *      and draws a line between a key and it's value pair
          */
         {
-            for(Wall wall: level.getCollider().getWalls().toList())
+            for(Path wall: level.getCollider().getWalls().toList())
             {
                 drawWall(graphic, wall);
             }
 
             displayEnds(graphic);
         }
-        public void drawWall(Graphics graphic, Wall wall)
+        public void drawWall(Graphics graphic, Path wall)
         // Uses logic to determine rectangle parameters and then draws the rectangle
         {
             int x, y, width, height;
 
-            if(wall.getType() == Wall.Type.HORIZONTAL)
+            if(wall.getType() == Path.Type.HORIZONTAL)
             {
-                x = wall.getCol() * scaleFactor + scaleFactor/4;
-                y = -wall.getRow() * scaleFactor + scaleFactor/4;
-                width = scaleFactor + scaleFactor/2;
-                height = scaleFactor/2;
+                x = wall.getCol() * scaleFactor;
+                y = -wall.getRow() * scaleFactor;
+                width = scaleFactor + ((scaleFactor-1)*scaleFactor)/scaleFactor;
+                height = ((scaleFactor-1)*scaleFactor)/scaleFactor;
             }
             else
             {
-                x = wall.getCol() * scaleFactor + scaleFactor/4;
-                y = -wall.getRow() * scaleFactor + scaleFactor/4;
-                width = scaleFactor/2;
-                height = scaleFactor + scaleFactor/2;
+                x = wall.getCol() * scaleFactor;
+                y = -wall.getRow() * scaleFactor;
+                width = ((scaleFactor-1)*scaleFactor)/scaleFactor;
+                height = scaleFactor + ((scaleFactor-1)*scaleFactor)/scaleFactor;
             }
 
             graphic.fillRect(x, y, width, height);
@@ -106,6 +108,13 @@ public class Display extends JPanel
         }
 
     // Character functions
+        public void spawnCharacter()
+        {
+            int x = (level.getMaze().getStart().getX() * (int)scaleFactor) + (int)(scaleFactor/2 - scaleFactor/8);
+            int y = (level.getMaze().getStart().getY() * (int)scaleFactor) + (int)(scaleFactor/2 - scaleFactor/8);
+
+            level.getPlayer().setPos(new Point(x, y));
+        }
         public void displayCharacter(Graphics graphic)
         /*
          * -Displays the character on the screen
@@ -119,20 +128,4 @@ public class Display extends JPanel
 
             graphic.fillOval(level.getPlayer().getX(), level.getPlayer().getY(), diameter, diameter);
         }
-
-    public void displayGrid(Graphics graphic)
-    {
-        for(int i = 0; i < (int)(Math.pow(2, level.getOrder() + 1)); i++)
-        {
-            graphic.drawLine(0, i * 100, scaleFactor * (int)(Math.pow(2, level.getOrder())), i * 100);
-            graphic.drawLine(i * 100, 0, i * 100, scaleFactor * (int)(Math.pow(2, level.getOrder())));
-        }
-
-        graphic.setColor(Color.RED);
-        for(int i = 0; i < (int)(Math.pow(2, level.getOrder() + 1)); i++)
-        {
-            graphic.drawLine(0, i * scaleFactor, scaleFactor * (int)(Math.pow(2, level.getOrder())), i * scaleFactor);
-            graphic.drawLine(i * scaleFactor, 0, i * scaleFactor, scaleFactor * (int)(Math.pow(2, level.getOrder())));
-        }
-    }
 }
